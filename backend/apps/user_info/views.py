@@ -1,3 +1,11 @@
-from django.shortcuts import render
+#-*- coding: utf-8 -*-
 
-# Create your views here.
+from rest_framework import viewsets
+
+from apps.user_info.models import UserInfo
+from apps.user_info.serializers import UserInfoSerializer
+
+
+class UserInfoViewSet(viewsets.ModelViewSet):
+    queryset = UserInfo.objects.all()
+    serializer_class = UserInfoSerializer
