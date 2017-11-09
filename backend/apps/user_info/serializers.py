@@ -6,8 +6,9 @@ from apps.user_info.models import UserInfo
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = UserInfo
-        fields = ['nickname', 'username_cn', 'job', 'role']
+        fields = ['user', 'nickname', 'username_cn', 'job', 'role']
         read_only_fields = ['role']

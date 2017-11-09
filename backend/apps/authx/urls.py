@@ -4,10 +4,10 @@ from django.conf.urls import url, include
 
 from rest_framework import routers
 
-from apps.user_info.views import UserInfoViewSet
+from apps.authx.views import UserViewSet
 
 router = routers.SimpleRouter()
-router.register(r'user-info', UserInfoViewSet, base_name='user-info')
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
