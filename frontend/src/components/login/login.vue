@@ -57,7 +57,7 @@
     },
 
     loginUser: function (username, password) {
-      this.$axios.post('http://127.0.0.1:8000/api-token-auth/', {
+      this.$axios.post('/api-token-auth/', {
         username: username,
         password: password
       })
