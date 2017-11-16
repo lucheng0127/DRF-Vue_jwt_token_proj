@@ -28,16 +28,15 @@
 
     data() {
       return {
-        data: [{
-          user: 'lucheng',
-          username_cn: '鲁成',
-          role: '学生'
-        }],
+        data: [],
       }
     },
 
     created: function () {
-      this.$axios.get('/user-info.json')
+      console.log(sessionStorage);
+      this.$axios.get('/user-info.json', {
+        headers: { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }
+      })
         .then(function (response) {
           this.data = response.data.results;
         }.bind(this))

@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="20">
         <div>
-          index
+          DRF_token_proj
         </div>
       </el-col>
       <el-col :span="4">
