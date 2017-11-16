@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="20">
         <div>
-          <p><router-link to="/user-info">User Info</router-link></p>
+          index
         </div>
       </el-col>
       <el-col :span="4">
@@ -18,13 +18,8 @@
 </template>
 
 <script>
-  import login from './components/login/login.vue'
-
   export default {
     name: 'app',
-    components: {
-      'v-login': login
-    },
 
     created: function () {
       if (sessionStorage.getItem('auth-token') == null || sessionStorage.getItem('auth-token') == undefined || sessionStorage.getItem('auth-token') == '') {
@@ -32,6 +27,7 @@
         this.$router.replace('/login');
       } else {
         console.log('用户已登录');
+        this.$router.replace('/user-info');
       }
     },
 

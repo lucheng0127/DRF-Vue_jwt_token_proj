@@ -48,9 +48,6 @@
       } else if (this.password.length < 8 || this.password.length > 20) {
         this.errors = '密码长度为8到20位'
       } else {
-        console.log(this.username);
-        console.log(this.password);
-        console.log(sessionStorage);
         this.loginUser(this.username, this.password);
         this.errors = null;
       }
@@ -64,6 +61,7 @@
         .then(function (response) {
           sessionStorage.setItem('auth-token', response.data.token);
           this.info = '登录成功！';
+          this.$router.replace('/user-info');
         }.bind(this))
         .catch(function (error) {
           this.errors = '用户名或密码错误！';
