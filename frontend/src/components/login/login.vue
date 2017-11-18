@@ -1,35 +1,34 @@
 <template>
   <div class="login">
-    <el-row type="flex" class="row-bg">
-      <el-col :span="6">
-        <div class="login-content">
-          <el-form label-width="100px">
-            <el-form-item>
-              <el-alert type="error" v-if="errors">
-                {{ errors }}
-              </el-alert>
-              <el-alert type="success" v-if="info">
-                {{ info }}
-              </el-alert>
-            </el-form-item>
-            <el-form-item label="账号">
-              <el-input v-model="username"></el-input>
-            </el-form-item>
-            <el-form-item label="密码">
-              <el-input type="password" v-model="password"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button round v-on:click="formSubmit">登录</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="login-content">
+      <el-form label-width="100px">
+        <el-form-item>
+          <el-alert type="error" v-if="errors">
+            {{ errors }}
+          </el-alert>
+          <el-alert type="success" v-if="info">
+            {{ info }}
+          </el-alert>
+        </el-form-item>
+        <el-form-item label="账号">
+          <el-input v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" v-model="password"></el-input>
+        </el-form-item>
+        <el-form-item style="margin-bottom: 0">
+          <el-button round v-on:click="formSubmit">登录</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
+  import ElHeader from "../../../node_modules/element-ui/packages/header/src/main.vue";
+
   export default {
+    components: {ElHeader},
     name: 'login',
 
   data() {
@@ -54,7 +53,7 @@
     },
 
     loginUser: function (username, password) {
-      this.$axios.post('/api-token-auth/', {
+      this.$axios.post('http://127.0.0.1:8000/api-token-auth/', {
         username: username,
         password: password
       })
@@ -75,5 +74,30 @@
 </script>
 
 <style>
+  .login {
+    margin: 0 auto;
+    background-image: url("../../common/img/bg.jpg");
+    padding-bottom: 180px;
+    padding-top: 220px;
+  }
+
+  .login-content {
+    width: 380px;
+    margin: 0 auto;
+  }
+
+  .el-form-item label {
+    color: #ecf5ff;
+  }
+
+  .el-form-item input {
+    background: transparent;
+    color: #ecf5ff;
+  }
+
+  .el-form-item button {
+    background: transparent;
+    color: #ecf5ff;
+  }
 
 </style>

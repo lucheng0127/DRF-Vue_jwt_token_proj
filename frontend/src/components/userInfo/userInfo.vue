@@ -34,7 +34,7 @@
 
     created: function () {
       console.log(sessionStorage);
-      this.$axios.get('/user-info.json', {
+      this.$axios.get('http://127.0.0.1:8000/user-info.json', {
         headers: { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }
       })
         .then(function (response) {
