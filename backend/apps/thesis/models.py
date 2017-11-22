@@ -23,7 +23,7 @@ class Thesis(models.Model):
 
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='thesis') # 指导老师
     stu_name = models.CharField(max_length=20, null=False, blank=False) # 学生姓名
-    stu_num = models.IntegerField(null=False, blank=False) # 学生学号
+    stu_num = models.IntegerField(null=False, blank=False, unique=True) # 学生学号
     stu_subj = models.CharField(max_length=2, null=False, blank=False, choices=SUBJ_TYPES) # 学生专业
     graduation_year = models.IntegerField(null=False, blank=False) # 毕业年份
     title = models.CharField(max_length=100, null=False, blank=False, validators=[validator_title]) # 论文题目
