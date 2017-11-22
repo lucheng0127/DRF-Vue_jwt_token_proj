@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^', include('apps.user_info.urls')),
     url(r'^', include('apps.authx.urls')),
+    url(r'^', include('apps.thesis.urls')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html', 'api'])
