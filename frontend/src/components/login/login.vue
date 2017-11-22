@@ -26,9 +26,12 @@
 
 <script>
   import ElHeader from "../../../node_modules/element-ui/packages/header/src/main.vue";
+  import ElMain from "../../../node_modules/element-ui/packages/main/src/main.vue";
 
   export default {
-    components: {ElHeader},
+    components: {
+      ElMain,
+      ElHeader},
     name: 'login',
 
   data() {
