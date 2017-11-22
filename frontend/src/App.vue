@@ -7,9 +7,12 @@
         </div>
         <el-button type="danger" round v-on:click="logoutUser">logout</el-button>
       </el-header>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+      <el-container>
+        <v-sidebar></v-sidebar>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
       <el-footer>
         <p>&copy; 2017 lucheng  |  lc960127@gmail.com  |  LC_WeChat_0127</p>
       </el-footer>
@@ -24,6 +27,7 @@
   import ElFooter from "../node_modules/element-ui/packages/footer/src/main.vue";
   import ElAside from "../node_modules/element-ui/packages/aside/src/main.vue";
   import ElContainer from "../node_modules/element-ui/packages/container/src/main.vue";
+  import sidebar from './components/sidebar/sidebar.vue'
 
   export default {
     components: {
@@ -31,7 +35,9 @@
       ElAside,
       ElFooter,
       ElMain,
-      ElHeader},
+      ElHeader,
+      'v-sidebar': sidebar,
+    },
     name: 'app',
 
     created: function () {
@@ -40,7 +46,7 @@
         this.$router.replace('/login');
       } else {
         console.log('用户已登录');
-        this.$router.replace('/user-info');
+        this.$router.replace('/thesis-list');
       }
     },
 
@@ -73,6 +79,10 @@
     font-size: 12px;
   }
 
+  .el-main {
+    min-height: 560px;
+  }
+
   .el-footer {
     background-color: #cdd6d0;
     color: #333;
@@ -88,7 +98,6 @@
   .el-main {
     margin-bottom:60px;
     padding: 0;
-    background-image: url("./common/img/home_bg.jpg");
   }
 
   .logo-content {

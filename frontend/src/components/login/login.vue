@@ -60,7 +60,7 @@
         .then(function (response) {
           sessionStorage.setItem('auth-token', response.data.token);
           this.info = '登录成功！';
-          this.$router.replace('/user-info');
+          this.$router.replace('/thesis-list');
         }.bind(this))
         .catch(function (error) {
           this.errors = '用户名或密码错误！';
