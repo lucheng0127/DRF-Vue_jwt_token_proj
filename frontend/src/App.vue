@@ -88,6 +88,7 @@
   .el-main {
     margin-bottom:60px;
     padding: 0;
+    background-image: url("./common/img/home_bg.jpg");
   }
 
   .logo-content {

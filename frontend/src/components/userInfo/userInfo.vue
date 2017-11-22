@@ -1,9 +1,6 @@
 <template>
   <div id="user-info">
-    <el-table
-      :data="data"
-      stripe
-      style="width: 100%">
+    <el-table :data="data" stripe style="width: 100%">
       <el-table-column
         prop="user"
         label="账号"
@@ -34,7 +31,7 @@
 
     created: function () {
       console.log(sessionStorage);
-      this.$axios.get('http://127.0.0.1:8000/user-info.json', {
+      this.$axios.get('/user-info.json', {
         headers: { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }
       })
         .then(function (response) {
@@ -49,4 +46,5 @@
 </script>
 
 <style>
+
 </style>
