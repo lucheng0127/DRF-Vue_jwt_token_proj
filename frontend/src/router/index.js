@@ -8,6 +8,7 @@ import thesisList from '../components/thesis/thesisList.vue'
 Vue.use(Router)
 
 export default new Router({
+// const router = new VueRouter({
   routes: [
     {
       path: '/login',
@@ -23,3 +24,11 @@ export default new Router({
     }
   ]
 })
+
+// router.beforeEach(function (to, from, next) {
+//   if (sessionStorage.getItem('auth-token')==null || sessionStorage.getItem('auth-token')==undefined || sessionStorage.getItem('auth-token')=='') {
+//     this.path.replace('/login');
+//   } else {
+//     next();
+//   }
+// })

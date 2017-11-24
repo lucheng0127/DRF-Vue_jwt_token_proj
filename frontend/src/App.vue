@@ -8,7 +8,7 @@
         <el-button type="danger" round v-on:click="logoutUser">logout</el-button>
       </el-header>
       <el-container>
-        <v-sidebar v-if="can_show!=undefined && can_show!=null && can_show!=''"></v-sidebar>
+        <v-sidebar v-if="can_show"></v-sidebar>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -42,16 +42,19 @@
 
     data() {
       return {
-        can_show: sessionStorage.getItem('auth-token'),
+        can_show: false,
       }
     },
 
     created: function () {
+      console.log(this.can_show);
       if (sessionStorage.getItem('auth-token') == null || sessionStorage.getItem('auth-token') == undefined || sessionStorage.getItem('auth-token') == '') {
         console.log('用户未登录');
+        this.can_show=false;
         this.$router.replace('/login');
       } else {
         console.log('用户已登录');
+        this.can_show=true;
         this.$router.replace('/thesis-list');
       }
     },
@@ -64,6 +67,7 @@
         }
       }
     },
+
   }
 </script>
 
