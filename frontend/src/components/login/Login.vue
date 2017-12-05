@@ -24,7 +24,7 @@
                 </FormItem>
                 <FormItem>
                   <div class="layout-copy">
-                    &copy; 2017 lucheng
+                    &copy; 2017 lucheng | <Icon type="email" /> lc960127@gmail.com
                   </div>
                 </FormItem>
               </Form>

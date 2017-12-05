@@ -8,7 +8,7 @@
             <h1>DGS</h1>
           </div>
           <MenuItem name="1">
-            <Icon type="ios-navigate" :size="iconSize"></Icon>
+            <Icon type="information-circled" :size="iconSize"></Icon>
             <span class="layout-text">最新通知</span>
           </MenuItem>
           <MenuItem name="2">
@@ -16,12 +16,12 @@
             <span class="layout-text">论文材料</span>
           </MenuItem>
           <MenuItem name="3">
-            <Icon type="ios-analytics" :size="iconSize"></Icon>
+            <Icon type="gear-a" :size="iconSize"></Icon>
             <span class="layout-text">个人设置</span>
           </MenuItem>
         </Menu>
         </Col>
-        <Col :span="spanRight">
+        <Col :span="spanRight" style="height: -webkit-fill-available;">
         <div class="layout-header">
           <Button type="text" @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="layout-copy">
-          &copy; 2017 lucheng
+          &copy; 2017 lucheng | <Icon type="email" /> lc960127@gmail.com
         </div>
         </Col>
       </Row>
@@ -88,19 +88,26 @@
     padding: 10px 15px 0;
   }
   .layout-content{
-    min-height: 200px;
+    height: calc(100% - 160px);
+    position: absolute;
+    width: calc(100% - 28px);
     margin: 15px;
     overflow: hidden;
     background: #fff;
     border-radius: 4px;
   }
   .layout-content-main{
+    height: 100%;
     padding: 10px;
   }
   .layout-copy{
     text-align: center;
     padding: 10px 0 20px;
-    color: #9ea7b4;
+    color: rgba(8, 5, 6, 0.85);
+    height: 48px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
   .layout-menu-left{
     background: #464c5b;
