@@ -9,7 +9,7 @@ from rest_framework.decorators import detail_route
 
 from django.contrib.auth.models import User
 
-from apps.authx.serializers import UserSerializer, UserCreateSerializer, PasswordSerializer
+from apps.authx.serializers import UserSerializer, UserCreateSerializer
 from apps.authx.permissions import IsSuperuserOrOwnerOrReadOnly
 
 
