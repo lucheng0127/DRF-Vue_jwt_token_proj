@@ -7,7 +7,7 @@
     </div>
     <div class="layout-content">
       <div class="layout-content-main">
-        毕业设计的id为:{{ $route.params.id }}
+        毕业设计的id为:{{ $route.params.thesis_id }}
         <router-view/>
       </div>
     </div>
