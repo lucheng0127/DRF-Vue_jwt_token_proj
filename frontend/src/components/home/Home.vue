@@ -26,6 +26,7 @@
           <Button type="text" @click="toggleClick">
             <Icon type="navicon" size="32"></Icon>
           </Button>
+          <Button class="logout" type="primary" shape="circle" icon="log-out" size="small">注销</Button>
         </div>
         <router-view/>
         <div class="layout-copy">
@@ -107,5 +108,10 @@
   }
   .layout-text{
     color: #c6c8cd;
+  }
+  .logout{
+    float: right;
+    margin-top: 10px;
+    margin-right: 30px;
   }
 </style>
