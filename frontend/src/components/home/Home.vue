@@ -9,15 +9,15 @@
           </div>
           <MenuItem name="1">
             <Icon type="information-circled" :size="iconSize"></Icon>
-            <span class="layout-text">最新通知</span>
+            <router-link to="/notify"><span class="layout-text">最新通知</span></router-link>
           </MenuItem>
           <MenuItem name="2">
             <Icon type="ios-keypad" :size="iconSize"></Icon>
-            <span class="layout-text">论文材料</span>
+            <router-link to="/thesis"><span class="layout-text">论文材料</span></router-link>
           </MenuItem>
           <MenuItem name="3">
             <Icon type="gear-a" :size="iconSize"></Icon>
-            <span class="layout-text">个人设置</span>
+            <router-link to="/settings"><span class="layout-text">个人设置</span></router-link>
           </MenuItem>
         </Menu>
         </Col>
@@ -27,18 +27,7 @@
             <Icon type="navicon" size="32"></Icon>
           </Button>
         </div>
-        <div class="layout-breadcrumb">
-          <Breadcrumb>
-            <BreadcrumbItem href="#">Index</BreadcrumbItem>
-            <BreadcrumbItem href="#">Apps</BreadcrumbItem>
-            <BreadcrumbItem>App</BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-        <div class="layout-content">
-          <div class="layout-content-main">
-            <router-view/>
-          </div>
-        </div>
+        <router-view/>
         <div class="layout-copy">
           &copy; 2017 lucheng | <Icon type="email" /> lc960127@gmail.com
         </div>
@@ -84,22 +73,6 @@
     border-radius: 4px;
     overflow: hidden;
   }
-  .layout-breadcrumb{
-    padding: 10px 15px 0;
-  }
-  .layout-content{
-    height: calc(100% - 160px);
-    position: absolute;
-    width: calc(100% - 28px);
-    margin: 15px;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 4px;
-  }
-  .layout-content-main{
-    height: 100%;
-    padding: 10px;
-  }
   .layout-copy{
     text-align: center;
     padding: 10px 0 20px;
@@ -132,7 +105,7 @@
   .layout-hide-text .layout-text{
     display: none;
   }
-  .ivu-col{
-    transition: width .2s ease-in-out;
+  .layout-text{
+    color: #c6c8cd;
   }
 </style>
