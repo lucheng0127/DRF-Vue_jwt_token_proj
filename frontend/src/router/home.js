@@ -6,8 +6,7 @@ import Notify from '../components/notify/Notify.vue'
 import Settings from '../components/settings/Settings.vue'
 
 export default {
-  path: '',
-  name: 'home',
+  path: '/',
   component: Home,
   children: [
     {

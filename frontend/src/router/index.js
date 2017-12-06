@@ -10,7 +10,6 @@ const router = new Router({
   routes: [
     {
       path: '/login',
-      name: 'login',
       component: Login
     },
     Home
