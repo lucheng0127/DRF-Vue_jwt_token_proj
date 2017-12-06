@@ -18,7 +18,7 @@ def validator_title(value):
 class Thesis(models.Model):
     SUBJ_TYPES = (
         ('CE', u'通信工程'),
-        ('IS', u'专业领导'),
+        ('IS', u'信息与计算科学'),
     )
 
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='thesis') # 指导老师
