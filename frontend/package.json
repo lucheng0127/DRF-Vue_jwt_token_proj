@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "iview": "^2.7.4",
     "vee-validate": "^2.0.0-rc.25",
     "vue": "^2.5.2",

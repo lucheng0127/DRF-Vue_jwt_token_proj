@@ -16,4 +16,19 @@ const router = new Router({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login') {
+    if (sessionStorage.getItem('auth-token')) {
+      console.log('用户已经登录')
+      next()
+    } else {
+      console.log('用户未登录')
+      next('/login')
+    }
+  } else {
+    console.log('当前页面是登录页面')
+    next()
+  }
+})
+
 export default router

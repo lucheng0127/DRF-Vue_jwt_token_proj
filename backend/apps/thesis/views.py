@@ -5,7 +5,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from apps.thesis.models import Thesis
+from apps.thesis.models import Thesis, ThesisLog
 from apps.thesis.serializers import ThesisSerializer
 from apps.thesis.permissions import IsOwnerOrReadOnly
 from utils.validate import validator_text
