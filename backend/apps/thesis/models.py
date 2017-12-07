@@ -41,3 +41,30 @@ class Thesis(models.Model):
     @property
     def file_path(self):
         return os.path.join(settings.BASE_DIR, 'thesis', self.file_structure)
+
+
+class ThesisLog(models.Model):
+    '''
+    论文材料上传记录
+    '''
+    FILE_CHOICE = (
+        ('MANDATE', u'01任务书'),
+        ('SCHEDULE1', u'02指导计划表(教师)'),
+        ('SCHEDULE2', u'03指导计划表(学生)'),
+        ('PROPOSAL', u'04开题报告'),
+        ('CHECKLIST', u'05中期检查表'),
+        ('PPT1', u'06中期检答辩PPT'),
+        ('DEFENCE', u'07答辩申请表'),
+        ('ADVICE', u'08导教师意见'),
+        ('REVIEW', u'09评阅意见'),
+        ('THESIS', u'10论文'),
+        ('PPT2', u'11答辩PPT'),
+        ('SCORE', u'12成绩登记表'),
+        ('SOURCECODE', u'13源代码'),
+    )
+
+    thesis = models.ForeignKey(Thesis, on_delete=models.CASCADE, related_name='thesis_log') # 对应的毕业论文
+    last_update_time = models.DateTimeField(auto_now=True) # 最近一次上传时间
+    created_date = models.DateField(auto_now_add=True) # 第一次上传时间
+    file = models.CharField(max_length=10, choices=FILE_CHOICE, null=False, blank=False) # 材料名称
+    upload_times = models.IntegerField(default=0) # 提交次数
