@@ -13,17 +13,6 @@ def validator_title(value):
         return False
     return True
 
-def validator_stu_num(value):
-    if len(value) == 11:
-        return True
-    return False
-
-def validator_year(value):
-    if len(value) == 4:
-        return True
-    return False
-
-
 
 class Thesis(models.Model):
     SUBJ_TYPES = (
@@ -33,9 +22,9 @@ class Thesis(models.Model):
 
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='thesis') # 指导老师
     stu_name = models.CharField(max_length=20, null=False, blank=False) # 学生姓名
-    stu_num = models.IntegerField(null=False, blank=False, unique=True, validators=[validator_stu_num]) # 学生学号
+    stu_num = models.IntegerField(null=False, blank=False, unique=True) # 学生学号
     stu_subj = models.CharField(max_length=2, null=False, blank=False, choices=SUBJ_TYPES) # 学生专业
-    graduation_year = models.IntegerField(null=False, blank=False, validators=[validator_year]) # 毕业年份
+    graduation_year = models.IntegerField(null=False, blank=False) # 毕业年份
     title = models.CharField(max_length=100, null=False, blank=False, validators=[validator_title]) # 论文题目
     created_date = models.DateField(auto_now_add=True) # 创建时间
     last_update_time = models.DateTimeField(auto_now=True) # 最近更新时间
