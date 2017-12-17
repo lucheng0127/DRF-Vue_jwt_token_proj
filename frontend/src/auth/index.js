@@ -1,4 +1,4 @@
-const LOGIN_URL = '/api-token-auth/'
+const LOGIN_URL = 'http://127.0.0.1:8000/api-token-auth/'
 
 export default {
   user: {

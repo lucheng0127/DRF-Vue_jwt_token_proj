@@ -1,65 +1,12 @@
 <template>
   <div id="login">
-    <div class="layout">
-      <div class="layout-content">
-        <Row>
-          <Col span="6" offset="9">
-            <div class="login-form">
-              <div class="login-form-title">
-                <h1>Welcome to DGS</h1>
-              </div>
-              <Form :model="loginForm" :rules="ruleForm">
-                <FormItem prop="user">
-                  <Input type="text" v-model="loginForm.user" placeholder="用户名">
-                    <Icon class="ivu-icon ivu-icon-person" slot="prepend"></Icon>
-                  </Input>
-                </FormItem>
-                <FormItem prop="password">
-                  <Input type="password" v-model="loginForm.password" placeholder="密码">
-                    <Icon class="ivu-icon ivu-icon-locked" slot="prepend"></Icon>
-                  </Input>
-                </FormItem>
-                <FormItem>
-                  <Button type="ghost" @click="handleSubmit('loginForm')">登录</Button>
-                </FormItem>
-                <FormItem>
-                  <div class="layout-copy">
-                    &copy; 2017 lucheng | <Icon type="email" /> lc960127@gmail.com
-                  </div>
-                </FormItem>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    </div>
+    <h1>Login Page</h1>
   </div>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        loginForm: {
-          user: '',
-          password: ''
-        },
-        ruleForm: {
-          user: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-            { type: 'string', min: 8, max: 15, message: '密码应8到15位', trigger: 'blur' }
-          ]
-        }
-      }
-    },
-    methods: {
-      handleSubmit () {
-        this.$Message.error('错误信息!')
-      }
-    }
+
   }
 </script>
 
