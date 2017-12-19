@@ -72,3 +72,7 @@ class ThesisLog(models.Model):
     @property
     def upload_to_path(self):
         return self.thesis.file_path
+
+    @property
+    def filename_cn(self):
+        return self.get_file_display()
