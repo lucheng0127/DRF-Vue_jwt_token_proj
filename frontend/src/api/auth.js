@@ -1,11 +1,11 @@
-const LOGIN_URL = 'http://127.0.0.1:8000/api-token-auth/'
+const LOGIN_URL = 'http://127.0.0.1:8000/api-token-api/'
 
 export default {
   user: {
     authenticated: false
   },
   checkAuth () {
-    var jwt = sessionStorage.getItem('auth-toke')
+    const jwt = sessionStorage.getItem('api-toke')
     if (jwt) {
       this.user.authenticated = true
     } else {
@@ -14,11 +14,11 @@ export default {
   },
   getAuthHeader () {
     return {
-      'Authorization': 'JWT ' + sessionStorage.getItem('auth-token')
+      'Authorization': 'JWT ' + sessionStorage.getItem('api-token')
     }
   },
   logout () {
-    sessionStorage.removeItem('auth-token')
+    sessionStorage.removeItem('api-token')
     this.user.authenticated = false
   },
   login (context, creds, redirect) {
