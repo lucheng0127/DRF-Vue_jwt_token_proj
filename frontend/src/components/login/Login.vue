@@ -8,20 +8,20 @@
           </div>
           <div class="login-item">
             <Icon type="person" size="23" />
-            <input type="text" placeholder=" 用户名" />
+            <input type="text" placeholder=" 用户名" v-model="username" />
             <p class="error-msg" v-if="usernameMsg">
               {{ usernameMsg }}<Icon type="close-circled" />
             </p>
           </div>
           <div class="login-item">
             <Icon type="locked" size="23" />
-            <input type="password" placeholder=" 密码" />
+            <input type="password" placeholder=" 密码" v-model="passwd" />
             <p class="error-msg" v-if="passwdMsg">
               {{ passwdMsg }}<Icon type="close-circled" />
             </p>
           </div>
           <div class="login-item">
-            <Button type="ghost" shape="circle">登 录</button>
+            <Button type="ghost" shape="circle" v-on:click="formSubmit">登 录</button>
           </div>
         </div>
       </div>
@@ -33,11 +33,31 @@
 </template>
 
 <script>
+  import {login} from '../../api/auth'
+
   export default {
     data () {
       return {
         usernameMsg: '',
-        passwdMsg: ''
+        passwdMsg: '',
+        username: '',
+        passwd: ''
+      }
+    },
+    methods: {
+      formSubmit: function () {
+        console.log('验证数据正确性')
+        if (this.username === '') {
+          this.usernameMsg = '请输入用户名！'
+        }
+        if (this.passwd.length < 8 || this.passwd.length > 15) {
+          this.passwdMsg = '密码应为8~15位！'
+        }
+        const authData = {
+          username: this.username,
+          password: this.passwd
+        }
+        login(this, authData, '/')
       }
     }
   }
