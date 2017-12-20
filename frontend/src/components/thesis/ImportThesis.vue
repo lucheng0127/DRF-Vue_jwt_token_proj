@@ -17,8 +17,9 @@
         <Alert type="warning" show-icon>总数据{{all_data}}条</Alert>
         <Alert type="success" show-icon>成功{{good_data}}条</Alert>
         <Alert type="error" show-icon>失败{{bad_data}}条</Alert>
-        <Input v-model="data" type="textarea" :rows="10" placeholder="鲁成,20140154004,CE,2018,学院材料收集系统"></Input>
-        <Button type="primary" shape="circle" icon="ios-download-outline">导入</Button>
+        <!--<Input v-model="thesisData" type="textarea" :rows="10" placeholder="鲁成,20140154004,CE,2018,学院材料收集系统"></Input>-->
+        <textarea class="thesis-text" v-model="thesisData" rows="10" placeholder="鲁成,20140154004,CE,2018,学院材料收集系统"></textarea>
+        <Button type="primary" shape="circle" icon="ios-download-outline" v-on:click="submitData">导入</Button>
         <router-view/>
       </div>
     </div>
@@ -26,17 +27,27 @@
 </template>
 
 <script>
+  import {importThesis} from '../../api/thesis'
   export default {
     name: 'import-thesis',
     data () {
       return {
         good_data: 0,
-        bad_data: 0
+        bad_data: 0,
+        thesisData: ''
       }
     },
     computed: {
       all_data: function () {
         return this.good_data + this.bad_data
+      }
+    },
+    methods: {
+      submitData () {
+        const data = {
+          data: this.thesisData
+        }
+        importThesis(this, data)
       }
     }
   }
@@ -66,5 +77,8 @@
   }
   .notify-msg{
     color: red;
+  }
+  .thesis-text{
+    width: 100%;
   }
 </style>
