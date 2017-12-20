@@ -9,7 +9,7 @@
     </div>
     <div class="layout-content">
       <div class="layout-content-main">
-        Thesis list Page
+        <Table height="500" :columns="columns" :data="thesisData"></Table>
         <router-view/>
       </div>
     </div>
@@ -17,8 +17,78 @@
 </template>
 
 <script>
+  import {getThesisList} from '../../api/thesis'
   export default {
-    name: 'thesis'
+    name: 'thesis',
+    data () {
+      return {
+        columns: [
+          {
+            title: '论文题目',
+            key: 'title'
+          },
+          {
+            title: '学生姓名',
+            key: 'stu_name'
+          },
+          {
+            title: '学生学号',
+            key: 'stu_num'
+          },
+          {
+            title: '指导老师',
+            key: 'instructor'
+          },
+          {
+            title: '专业',
+            key: 'subject'
+          },
+          {
+            title: '毕业年份',
+            key: 'graduation_year'
+          },
+          {
+            title: '操作',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.show(params.index)
+                    }
+                  }
+                }, 'View'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  on: {
+                    click: () => {
+                      this.remove(params.index)
+                    }
+                  }
+                }, 'Delete')
+              ])
+            }
+          }
+        ],
+        thesisData: []
+      }
+    },
+    created: function () {
+      getThesisList(this)
+    }
   }
 </script>
 
