@@ -5,8 +5,8 @@ const IMPORT_THESIS_URL = '/thesis/'
 export function getThesisList (context) {
   context.$axios.get(THESIS_URL, {headers: AUTH_HEADER})
     .then(function (response) {
-      context.thesisData = response.data.results
-      console.log(response.data.results)
+      context.thesisData = response.data
+      console.log(response.data)
     })
     .catch(function (error) {
       console.log(error)
