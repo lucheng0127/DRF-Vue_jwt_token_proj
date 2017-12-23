@@ -9,7 +9,6 @@ export function getThesisList (context) {
   context.$axios.get(THESIS_URL, {headers: getAuthHeader()})
     .then(function (response) {
       context.thesisData = response.data
-      console.log(response.data)
     })
     .catch(function (error) {
       console.log(error)

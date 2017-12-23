@@ -9,7 +9,7 @@
     </div>
     <div class="layout-content">
       <div class="layout-content-main">
-        <Table height="500" :columns="columns" :data="thesisData"></Table>
+        <Table class="thesis-list-table" height="500" :columns="columns" :data="thesisData"></Table>
         <router-view/>
       </div>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
   import {getThesisList} from '../../api/thesis'
+  import router from '../../router/index'
   export default {
     name: 'thesis',
     data () {
@@ -64,10 +65,10 @@
                   },
                   on: {
                     click: () => {
-                      this.show(params.index)
+                      router.push('/thesis/' + params.row.id)
                     }
                   }
-                }, 'View'),
+                }, '详情'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -78,7 +79,7 @@
                       this.remove(params.index)
                     }
                   }
-                }, 'Delete')
+                }, '删除')
               ])
             }
           }
