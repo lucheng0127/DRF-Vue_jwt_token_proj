@@ -67,78 +67,91 @@ class ThesisViewSet(viewsets.ModelViewSet):
     @detail_route()
     def thesis_log(self, request, pk=None):
         thesis_log = self.get_object().thesis_log.all()
-        print(thesis_log)
         serializer = ThesisLogSerializer(thesis_log, many=True)
         data = collections.OrderedDict()
         data['MANDATE'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "01任务书",
             "upload_times": 0
         }
         data['SCHEDULE1'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "02指导计划表(教师)",
             "upload_times": 0
         }
         data['SCHEDULE2'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "03指导计划表(学生)",
             "upload_times": 0
-        },
+        }
         data['PROPOSAL'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "04开题报告",
             "upload_times": 0
         }
         data['CHECKLIST'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "05中期检查表",
             "upload_times": 0
         }
         data['PPT1'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "06中期检答辩PPT",
             "upload_times": 0
         }
         data['DEFENCE'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "07答辩申请表",
             "upload_times": 0
         }
         data['ADVICE'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "08导教师意见",
             "upload_times": 0
         }
         data['REVIEW'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "09评阅意见",
             "upload_times": 0
         }
         data['THESIS'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "10论文",
             "upload_times": 0
         }
         data['PPT2'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "11答辩PPT",
             "upload_times": 0
         }
         data['SCORE'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "12成绩登记表",
             "upload_times": 0
         }
         data['SOURCECODE'] = {
-            "last_update_time": '',
+            "id": '',
+            "last_upload_time": '',
             "filename_cn": "13源代码",
             "upload_times": 0
         }
-
         for item in serializer.data:
-            if item.get('last_update_time'):
-                data[item.get('file')]['last_update_time'] = item.get('last_update_time')
+            if item.get('last_upload_time'):
+                data[item.get('file')]['last_upload_time'] = item.get('last_upload_time')
+            if item.get('id'):
+                data[item.get('file')]['id'] = item.get('id')
             data[item.get('file')]['filename_cn'] = item.get('filename_cn')
             data[item.get('file')]['upload_times'] = item.get('upload_times')
         thesis_log_data = []

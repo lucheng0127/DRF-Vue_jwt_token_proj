@@ -8,8 +8,8 @@ from apps.thesis.models import Thesis, ThesisLog
 class ThesisLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ThesisLog
-        fields = ['id', 'thesis', 'last_update_time', 'created_date', 'file', 'filename_cn', 'upload_times']
-        read_only_fields = ['id', 'thesis', 'last_update_time', 'created_date', 'file', 'filename_cn', 'upload_times']
+        fields = ['id', 'thesis', 'last_upload_time', 'created_date', 'file', 'filename_cn', 'upload_times']
+        read_only_fields = ['id', 'thesis', 'last_upload_time', 'created_date', 'file', 'filename_cn', 'upload_times']
 
 
 class ThesisSerializer(serializers.ModelSerializer):

@@ -64,7 +64,7 @@ class ThesisLog(models.Model):
     )
 
     thesis = models.ForeignKey(Thesis, on_delete=models.CASCADE, related_name='thesis_log') # 对应的毕业论文
-    last_update_time = models.DateTimeField(auto_now=True) # 最近一次上传时间
+    last_upload_time = models.DateTimeField(auto_now=True) # 最近一次上传时间
     created_date = models.DateField(auto_now_add=True) # 第一次上传时间
     file = models.CharField(max_length=10, choices=FILE_CHOICE, null=False, blank=False) # 材料名称
     upload_times = models.IntegerField(default=0) # 提交次数
