@@ -159,6 +159,16 @@ class ThesisViewSet(viewsets.ModelViewSet):
             thesis_log_data.append(v)
         return Response({'data': thesis_log_data}, status=status.HTTP_200_OK)
 
+    @detail_route()
+    def top_5_log(self, request, pk=None):
+        logs = self.get_object().thesis_log.all()
+        if len(logs) <= 5:
+            serializer = ThesisLogSerializer(logs, many=True)
+        else:
+            top_5_logs = logs[0:4]
+            serializer = ThesisLogSerializer(top_5_logs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def perform_create(self, serializer):
         serializer.save(instructor=self.request.user)
 

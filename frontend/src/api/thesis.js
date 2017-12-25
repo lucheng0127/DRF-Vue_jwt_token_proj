@@ -58,3 +58,17 @@ export function getThesisLog (context, id) {
       console.log(error)
     })
 }
+
+export function getTopLogs (context, id) {
+  context.$axios({
+    method: 'get',
+    headers: getAuthHeader(),
+    url: IMPORT_THESIS_URL + id + '/top_5_log/'
+  })
+    .then(function (response) {
+      context.timeLineData = response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}

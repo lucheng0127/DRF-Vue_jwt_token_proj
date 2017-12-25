@@ -12,9 +12,15 @@
         </div>
         <div class="content-body">
           <div class="content-body-left">
-            材料上传统计
+            <Table height="500" :columns="thesisLogColumns" :data="thesis_log_data"></Table>
           </div>
           <div class="content-body-right">
+            <Card>
+              <p slot="title">基本信息：</p>
+              <p><b>论文题目：</b>{{data.title}}</p>
+              <p><b>指导老师：</b>{{data.instructor}}</p>
+              <p><b>学生：</b>{{data.stu_name}}</p>
+            </Card>
             <h3 class="timeline-title">最近上传</h3>
             <Timeline>
               <TimelineItem v-for="item in timeLineData" v-bind:key="item.filename_cn">
@@ -31,23 +37,56 @@
 </template>
 
 <script>
+  import {getThesisDetail, getThesisLog, getTopLogs} from '../../api/thesis'
   export default {
     name: 'thesis-detail',
     created: function () {
-      console.log(this.$route.params.thesis_id)
+//      console.log(this.$route.params.thesis_id)
+      getThesisDetail(this, this.$route.params.thesis_id)
+      getThesisLog(this, this.$route.params.thesis_id)
+      getTopLogs(this, this.$route.params.thesis_id)
     },
     data () {
       return {
         data: {},
         thesis_log_data: [],
-        timeLineData: [
+        timeLineData: [],
+        thesisLogColumns: [
           {
-            filename_cn: '材料名字1',
-            last_update_time: '2017-11-22T03:36:30.498937Z'
+            title: '材料',
+            key: 'filename_cn'
           },
           {
-            filename_cn: '材料名字2',
-            last_update_time: '2017-11-22T03:36:30.498937Z'
+            title: '上传次数',
+            key: 'upload_times'
+          },
+          {
+            title: '最近上传时间',
+            key: 'last_update_time'
+          },
+          {
+            title: '下载',
+            key: 'action',
+            fixed: 'right',
+            width: 60,
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      console.log('下载文件,id为' + params.row.id)
+                    }
+                  }
+                }, '下载')
+              ])
+            }
           }
         ]
       }
@@ -83,5 +122,6 @@
   }
   .timeline-title{
     margin-bottom: 20px;
+    margin-top: 30px;
   }
 </style>
