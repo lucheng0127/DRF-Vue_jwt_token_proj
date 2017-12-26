@@ -4,7 +4,8 @@ import collections
 from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import detail_route, list_route
 
 from apps.thesis.models import Thesis, ThesisLog
@@ -172,3 +173,65 @@ class ThesisViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(instructor=self.request.user)
 
+
+class ThesisMaterials(APIView):
+    '''
+    get thesis materials choice
+    '''
+    permission_classes = (AllowAny,)
+
+    def get(self, request, format=None):
+        choices = []
+        choices.append({
+            'value': 'MANDATE',
+            'filename': u'01任务书'
+        })
+        choices.append({
+            'value': 'SCHEDULE1',
+            'filename': u'02指导计划表(教师)'
+        })
+        choices.append({
+            'value': 'SCHEDULE2',
+            'filename': u'03指导计划表(学生)'
+        })
+        choices.append({
+            'value': 'PROPOSAL',
+            'filename': u'04开题报告'
+        })
+        choices.append({
+            'value': 'CHECKLIST',
+            'filename': u'05中期检查表'
+        })
+        choices.append({
+            'value': 'PPT1',
+            'filename': u'06中期检答辩PPT'
+        })
+        choices.append({
+            'value': 'DEFENCE',
+            'filename': u'07答辩申请表'
+        })
+        choices.append({
+            'value': 'ADVICE',
+            'filename': u'08导教师意见'
+        })
+        choices.append({
+            'value': 'REVIEW',
+            'filename': u'09评阅意见'
+        })
+        choices.append({
+            'value': 'THESIS',
+            'filename': u'10论文'
+        })
+        choices.append({
+            'value': 'PPT2',
+            'filename': u'11答辩PPT'
+        })
+        choices.append({
+            'value': 'SCORE',
+            'filename': u'12成绩登记表'
+        })
+        choices.append({
+            'value': 'SOURCECODE',
+            'filename': u'13源代码'
+        })
+        return Response(choices, status=status.HTTP_200_OK)

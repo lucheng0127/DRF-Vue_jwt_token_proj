@@ -1,9 +1,14 @@
 <template>
   <div id="thesis-detail">
     <div class="layout-breadcrumb">
-      <Breadcrumb>
-        <BreadcrumbItem>{{data.title}}</BreadcrumbItem>
-      </Breadcrumb>
+      <div class="nav-left">
+        <Breadcrumb>
+          <BreadcrumbItem class="thesis-title">{{data.title}}</BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+      <div class="nav-right">
+        <Button class="logout" type="primary" shape="circle" icon="ios-cloud-upload" size="small" v-on:click="to_file_upload">上传材料</Button>
+      </div>
     </div>
     <div class="layout-content">
       <div class="layout-content-main">
@@ -30,7 +35,6 @@
             </Timeline>
           </div>
         </div>
-        <router-view/>
       </div>
     </div>
   </div>
@@ -38,6 +42,7 @@
 
 <script>
   import {getThesisDetail, getThesisLog, getTopLogs} from '../../api/thesis'
+  import router from '../../router/index'
   export default {
     name: 'thesis-detail',
     created: function () {
@@ -90,6 +95,11 @@
           }
         ]
       }
+    },
+    methods: {
+      to_file_upload: function () {
+        router.push('/material/' + this.$route.params.thesis_id)
+      }
     }
   }
 </script>
@@ -123,5 +133,20 @@
   .timeline-title{
     margin-bottom: 20px;
     margin-top: 30px;
+  }
+  .thesis-title{
+    font-weight: 800;
+  }
+  .nav-left{
+    width: 85%;
+    float: left;
+  }
+  .nav-right{
+    width: 15%;
+    float: left;
+  }
+  .nav-right button{
+    margin-top: 0px;
+    margin-right: 17px;
   }
 </style>
