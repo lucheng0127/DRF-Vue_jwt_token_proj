@@ -29,7 +29,7 @@
             <h3 class="timeline-title">最近上传</h3>
             <Timeline>
               <TimelineItem v-for="item in timeLineData" v-bind:key="item.filename_cn">
-                <p class="time">{{item.last_update_time}}</p>
+                <p class="time">{{item.last_upload_time}}</p>
                 <p class="content">{{item.filename_cn}}</p>
               </TimelineItem>
             </Timeline>
@@ -67,7 +67,7 @@
           },
           {
             title: '最近上传时间',
-            key: 'last_update_time'
+            key: 'last_upload_time'
           },
           {
             title: '下载',

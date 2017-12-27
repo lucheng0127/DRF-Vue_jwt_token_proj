@@ -40,7 +40,7 @@ class Thesis(models.Model):
 
     @property
     def file_path(self):
-        return os.path.join(settings.BASE_DIR, 'thesis', self.file_structure)
+        return os.path.join(settings.BASE_DIR, 'media', 'thesis', self.file_structure)
 
 
 class ThesisLog(models.Model):
@@ -68,6 +68,7 @@ class ThesisLog(models.Model):
     created_date = models.DateField(auto_now_add=True) # 第一次上传时间
     file = models.CharField(max_length=10, choices=FILE_CHOICE, null=False, blank=False) # 材料名称
     upload_times = models.IntegerField(default=0) # 提交次数
+    file_abs_path = models.CharField(max_length=255, null=True, blank=True, default='') # 文件觉得路径
 
     @property
     def upload_to_path(self):

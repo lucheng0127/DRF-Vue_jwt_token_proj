@@ -1,7 +1,11 @@
 #-*- coding: utf-8 -*-
 import collections
+import os
 
+from django.db import transaction
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.core.files.storage import FileSystemStorage
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -177,6 +181,7 @@ class ThesisViewSet(viewsets.ModelViewSet):
 class ThesisMaterials(APIView):
     '''
     get thesis materials choice
+    post to upload material file
     '''
     permission_classes = (AllowAny,)
 
@@ -235,3 +240,38 @@ class ThesisMaterials(APIView):
             'filename': u'13源代码'
         })
         return Response(choices, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        '''
+        upload materials
+        '''
+        # 数据初始化
+        accept_type = ['png', 'jpg', 'jepg', 'pdf', 'txt',
+                       'doc', 'docx', 'xls', 'xlsx', 'ppt',
+                       'pptx', 'md', 'zip', 'rar', '7z',
+                       'gz', 'bz2']
+        data_params = request.data
+        file = request.FILES['my_file']
+        thesis_obj = get_object_or_404(Thesis, id=data_params['thesis_id'])
+        user = request.user
+        # 用户权限判断
+        if not user == thesis_obj.instructor:
+            return Response({'msg': u'只有指导老师本人可以上传材料！'}, status=status.HTTP_403_FORBIDDEN)
+        # 验证文件类型
+        file_type = str(file.name).split('.',)[-1]
+        if not file_type in accept_type:
+            return Response({'msg': u'只允许上传图片，word文档，文本文档，markdown文档，幻灯片文档，excel文档以及压缩包！'}, status=status.HTTP_400_BAD_REQUEST)
+        # 按照model中的file_path保存文件,并重命名文件。
+        with transaction.atomic():
+            thesis_log_obj = ThesisLog.objects.get_or_create(thesis=thesis_obj, file=data_params['material'])[0]
+            thesis_log_obj.upload_times += 1
+            # 删除原先的文件
+            if os.path.exists(thesis_log_obj.file_abs_path):
+                os.remove(thesis_log_obj.file_abs_path)
+            file_name = u'{}.{}'.format(thesis_log_obj.filename_cn, file_type)
+            file_save_path = os.path.join(thesis_obj.file_path, file_name)
+            thesis_log_obj.file_abs_path = file_save_path
+            fs = FileSystemStorage()
+            fs.save(file_save_path, file)
+            thesis_log_obj.save()
+            return Response(status=status.HTTP_200_OK)
