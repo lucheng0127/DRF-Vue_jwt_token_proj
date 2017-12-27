@@ -7,7 +7,7 @@
         </Breadcrumb>
       </div>
       <div class="nav-right">
-        <Button class="logout" type="primary" shape="circle" icon="ios-cloud-upload" size="small" v-on:click="to_file_upload">上传材料</Button>
+        <Button class="logout" type="primary" shape="circle" icon="ios-cloud-download" size="small" v-on:click="download_file">打包材料</Button>
       </div>
     </div>
     <div class="layout-content">
@@ -42,7 +42,7 @@
 
 <script>
   import {getThesisDetail, getThesisLog, getTopLogs} from '../../api/thesis'
-  import router from '../../router/index'
+//  import router from '../../router/index'
   export default {
     name: 'thesis-detail',
     created: function () {
@@ -70,26 +70,46 @@
             key: 'last_upload_time'
           },
           {
-            title: '下载',
+            title: '操作',
             key: 'action',
             fixed: 'right',
-            width: 60,
+            width: 120,
             render: (h, params) => {
               return h('div', [
-                h('Button', {
+//                h('Button', {
+//                  props: {
+//                    type: 'ghost',
+//                    size: 'small'
+//                  },
+//                  style: {
+//                    marginRight: '5px'
+//                  },
+//                  on: {
+//                    click: () => {
+//                      console.log('下载文件,id为' + params.row.pk)
+//                      console.log(params.row)
+//                    }
+//                  }
+//                }, '下载'),
+                h('Upload', {
                   props: {
-                    type: 'primary',
-                    size: 'small'
+                    action: 'http://127.0.0.1:8000/materials/',
+                    headers: {'Authorization': 'JWT ' + sessionStorage.getItem('auth-token')},
+                    name: 'my_file',
+                    data: {
+                      'thesis_id': this.$route.params.thesis_id,
+                      'material': params.row.material
+                    }
                   },
                   style: {
                     marginRight: '5px'
                   },
                   on: {
                     click: () => {
-                      console.log('下载文件,id为' + params.row.id)
+                      console.log('上传文件,id为' + params.row.id)
                     }
                   }
-                }, '下载')
+                }, '上传')
               ])
             }
           }
@@ -97,8 +117,8 @@
       }
     },
     methods: {
-      to_file_upload: function () {
-        router.push('/material/' + this.$route.params.thesis_id)
+      download_file: function () {
+        console.log('打包下载材料')
       }
     }
   }

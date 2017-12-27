@@ -75,88 +75,101 @@ class ThesisViewSet(viewsets.ModelViewSet):
         serializer = ThesisLogSerializer(thesis_log, many=True)
         data = collections.OrderedDict()
         data['MANDATE'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "01任务书",
+            "material": "MANDATE",
             "upload_times": 0
         }
         data['SCHEDULE1'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "02指导计划表(教师)",
+            "material": "SCHEDULE1",
             "upload_times": 0
         }
         data['SCHEDULE2'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "03指导计划表(学生)",
+            "material": "SCHEDULE2",
             "upload_times": 0
         }
         data['PROPOSAL'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "04开题报告",
+            "material": "PROPOSAL",
             "upload_times": 0
         }
         data['CHECKLIST'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "05中期检查表",
+            "material": "CHECKLIST",
             "upload_times": 0
         }
         data['PPT1'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "06中期检答辩PPT",
+            "material": "PPT1",
             "upload_times": 0
         }
         data['DEFENCE'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "07答辩申请表",
+            "material": "DEFENCE",
             "upload_times": 0
         }
         data['ADVICE'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "08导教师意见",
+            "material": "ADVICE",
             "upload_times": 0
         }
         data['REVIEW'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "09评阅意见",
+            "material": "REVIEW",
             "upload_times": 0
         }
         data['THESIS'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "10论文",
+            "material": "THESIS",
             "upload_times": 0
         }
         data['PPT2'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "11答辩PPT",
+            "material": "PPT2",
             "upload_times": 0
         }
         data['SCORE'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "12成绩登记表",
+            "material": "SCORE",
             "upload_times": 0
         }
         data['SOURCECODE'] = {
-            "id": '',
+            "pk": '',
             "last_upload_time": '',
             "filename_cn": "13源代码",
+            "material": "SOURCECODE",
             "upload_times": 0
         }
         for item in serializer.data:
             if item.get('last_upload_time'):
                 data[item.get('file')]['last_upload_time'] = item.get('last_upload_time')
             if item.get('id'):
-                data[item.get('file')]['id'] = item.get('id')
+                data[item.get('file')]['pk'] = item.get('id')
             data[item.get('file')]['filename_cn'] = item.get('filename_cn')
             data[item.get('file')]['upload_times'] = item.get('upload_times')
         thesis_log_data = []
@@ -170,7 +183,7 @@ class ThesisViewSet(viewsets.ModelViewSet):
         if len(logs) <= 5:
             serializer = ThesisLogSerializer(logs, many=True)
         else:
-            top_5_logs = logs[0:4]
+            top_5_logs = logs[0:5]
             serializer = ThesisLogSerializer(top_5_logs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

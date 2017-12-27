@@ -4,7 +4,6 @@ import ImportThesis from '../components/thesis/ImportThesis.vue'
 import ThesisDetail from '../components/thesis/ThesisDetail.vue'
 import Notify from '../components/notify/Notify.vue'
 import Settings from '../components/settings/Settings.vue'
-import Material from '../components/thesis/Material.vue'
 
 export default {
   path: '/',
@@ -38,11 +37,6 @@ export default {
       path: 'settings',
       name: 'settings',
       component: Settings
-    },
-    {
-      path: 'material/:thesis_id',
-      name: 'material',
-      component: Material
     }
   ]
 }
