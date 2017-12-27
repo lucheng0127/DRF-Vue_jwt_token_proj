@@ -93,7 +93,7 @@
 //                }, '下载'),
                 h('Upload', {
                   props: {
-                    action: 'http://127.0.0.1:8000/materials/',
+                    action: '/materials/',
                     headers: {'Authorization': 'JWT ' + sessionStorage.getItem('auth-token')},
                     name: 'my_file',
                     data: {
