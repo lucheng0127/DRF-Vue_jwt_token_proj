@@ -21,3 +21,16 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return False
 
         return False
+
+
+def can_download(user, obj):
+    if user.is_superuser or user.user_info.role == 'admin':
+        return True
+
+    elif obj.thesis.instructor == user:
+        return True
+
+    elif user.user_info.role == 'subject_leader':
+        return obj.thesis.stu_subj == user.user_info.job.split('_', )[0]
+
+    return False

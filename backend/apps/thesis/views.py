@@ -2,6 +2,8 @@
 import collections
 import os
 
+from django.http import HttpResponse
+from django.utils.encoding import escape_uri_path
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
@@ -14,7 +16,7 @@ from rest_framework.decorators import detail_route, list_route
 
 from apps.thesis.models import Thesis, ThesisLog
 from apps.thesis.serializers import ThesisSerializer, ThesisLogSerializer
-from apps.thesis.permissions import IsOwnerOrReadOnly
+from apps.thesis.permissions import IsOwnerOrReadOnly, can_download
 from utils.validate import validator_text
 
 
@@ -288,3 +290,27 @@ class ThesisMaterials(APIView):
             fs.save(file_save_path, file)
             thesis_log_obj.save()
             return Response(status=status.HTTP_200_OK)
+
+
+class GetMaterial(APIView):
+    '''
+    download a material file
+    '''
+    def get(self, request, format=None):
+        # 数据初始化
+        data_params = request.GET
+        material_obj = get_object_or_404(ThesisLog, id=data_params['thesis_log_id'])
+        file_path = material_obj.file_abs_path
+        filename_cn = os.path.basename(file_path)
+        print(filename_cn)
+        # 权限判断
+        if not can_download(request.user, material_obj):
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        # 判断文件是否存在
+        if os.path.exists(file_path):
+            # 返回file
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/force-download")
+                response['Content-Disposition'] = "attachment; filename={}".format(escape_uri_path(filename_cn))
+                return response
+        return Response({'msg': u'文件不存在！'}, status=status.HTTP_400_BAD_REQUEST)
