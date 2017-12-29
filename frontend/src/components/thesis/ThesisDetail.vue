@@ -41,12 +41,13 @@
 </template>
 
 <script>
-  import {getThesisDetail, getThesisLog, getTopLogs} from '../../api/thesis'
-//  import router from '../../router/index'
+  import {getThesisDetail, getThesisLog, getTopLogs, getAuthHeader} from '../../api/thesis'
+  import axios from 'axios'
+  const MATERIAL_URL = '/materials/'
+  const DOWNLOAD_URL = '/get_material/'
   export default {
     name: 'thesis-detail',
     created: function () {
-//      console.log(this.$route.params.thesis_id)
       getThesisDetail(this, this.$route.params.thesis_id)
       getThesisLog(this, this.$route.params.thesis_id)
       getTopLogs(this, this.$route.params.thesis_id)
@@ -73,27 +74,53 @@
             title: '操作',
             key: 'action',
             fixed: 'right',
-            width: 120,
+            width: 80,
             render: (h, params) => {
               return h('div', [
-//                h('Button', {
-//                  props: {
-//                    type: 'ghost',
-//                    size: 'small'
-//                  },
-//                  style: {
-//                    marginRight: '5px'
-//                  },
-//                  on: {
-//                    click: () => {
-//                      console.log('下载文件,id为' + params.row.pk)
-//                      console.log(params.row)
-//                    }
-//                  }
-//                }, '下载'),
+                h('A', {
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      if (params.row.pk !== '') {
+                        console.log('下载文件,id为' + params.row.pk)
+                        let filename = ''
+                        let data = {'thesis_log_id': params.row.pk}
+                        axios({
+                          method: 'post',
+                          headers: getAuthHeader(),
+                          url: DOWNLOAD_URL,
+                          data: data
+                        })
+                          .then(function (response) {
+                            filename = response.data.filename
+                          })
+                          .catch(function (error) {
+                            console.log(error)
+                          })
+                        axios({
+                          method: 'get',
+                          headers: getAuthHeader(),
+                          url: DOWNLOAD_URL + '?thesis_log_id=' + params.row.pk
+                        })
+                          .then(function (response) {
+                            let blob = new Blob([response.data], { type: 'application/force-download' })
+                            let link = document.createElement('a')
+                            link.href = window.URL.createObjectURL(blob)
+                            link.download = filename
+                            link.click()
+                          })
+                          .catch(function (error) {
+                            console.log(error)
+                          })
+                      }
+                    }
+                  }
+                }, '下载'),
                 h('Upload', {
                   props: {
-                    action: '/materials/',
+                    action: MATERIAL_URL,
                     headers: {'Authorization': 'JWT ' + sessionStorage.getItem('auth-token')},
                     name: 'my_file',
                     data: {
@@ -102,7 +129,10 @@
                     }
                   },
                   style: {
-                    marginRight: '5px'
+                    width: '25px',
+                    marginRight: '5px',
+                    float: 'left',
+                    color: '#2d8cf0'
                   },
                   on: {
                     click: () => {

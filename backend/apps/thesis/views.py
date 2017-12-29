@@ -314,3 +314,10 @@ class GetMaterial(APIView):
                 response['Content-Disposition'] = "attachment; filename={}".format(escape_uri_path(filename_cn))
                 return response
         return Response({'msg': u'文件不存在！'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, format=None):
+        data_params = request.data
+        material_obj = get_object_or_404(ThesisLog, id=data_params['thesis_log_id'])
+        file_path = material_obj.file_abs_path
+        filename_cn = os.path.basename(file_path)
+        return Response({'filename': filename_cn}, status=status.HTTP_200_OK)
