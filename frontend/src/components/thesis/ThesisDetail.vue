@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import {getThesisDetail, getThesisLog, getTopLogs, getAuthHeader} from '../../api/thesis'
+  import {getThesisDetail, getThesisLog, getTopLogs, getAuthHeader, packMaterials} from '../../api/thesis'
   import axios from 'axios'
   const MATERIAL_URL = '/materials/'
   const DOWNLOAD_URL = '/get_material/'
@@ -102,7 +102,8 @@
                         axios({
                           method: 'get',
                           headers: getAuthHeader(),
-                          url: DOWNLOAD_URL + '?thesis_log_id=' + params.row.pk
+                          url: DOWNLOAD_URL + '?thesis_log_id=' + params.row.pk,
+                          responseType: 'blob'
                         })
                           .then(function (response) {
                             let blob = new Blob([response.data], { type: 'application/force-download' })
@@ -148,7 +149,9 @@
     },
     methods: {
       download_file: function () {
-        console.log('打包下载材料')
+        console.log('打包下载材料,材料id为' + this.$route.params.thesis_id)
+        let filename = this.data.stu_num + '_' + this.data.stu_name + '.zip'
+        packMaterials(this, this.$route.params.thesis_id, filename)
       }
     }
   }

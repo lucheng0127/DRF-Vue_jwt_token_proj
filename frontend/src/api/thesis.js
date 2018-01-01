@@ -1,5 +1,6 @@
 const THESIS_URL = '/thesis.json'
 const IMPORT_THESIS_URL = '/thesis/'
+const PACK_URL = '/get_materials/?thesis_id='
 
 export function getAuthHeader () {
   return { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }
@@ -67,6 +68,26 @@ export function getTopLogs (context, id) {
   })
     .then(function (response) {
       context.timeLineData = response.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+export function packMaterials (context, thesisId, filename) {
+  context.$axios({
+    method: 'get',
+    headers: getAuthHeader(),
+    url: PACK_URL + thesisId,
+    responseType: 'blob'
+  })
+    .then(function (response) {
+      console.log(response)
+      let blob = new Blob([response.data], { type: 'application/force-download' })
+      let link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = filename
+      link.click()
     })
     .catch(function (error) {
       console.log(error)
