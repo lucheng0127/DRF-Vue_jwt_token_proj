@@ -2,8 +2,6 @@
 import collections
 import os
 
-from django.http import HttpResponse
-from django.utils.encoding import escape_uri_path
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
@@ -12,12 +10,13 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import detail_route
 
 from apps.thesis.models import Thesis, ThesisLog
 from apps.thesis.serializers import ThesisSerializer, ThesisLogSerializer
-from apps.thesis.permissions import IsOwnerOrReadOnly, can_download
+from apps.thesis.permissions import IsOwnerOrReadOnly, can_download, can_pack
 from utils.validate import validator_text
+from utils.file_response import file_response, file_pack
 
 
 class ThesisViewSet(viewsets.ModelViewSet):
@@ -302,18 +301,15 @@ class GetMaterial(APIView):
         material_obj = get_object_or_404(ThesisLog, id=data_params['thesis_log_id'])
         file_path = material_obj.file_abs_path
         filename_cn = os.path.basename(file_path)
-        print(filename_cn)
         # 权限判断
         if not can_download(request.user, material_obj):
             return Response(status=status.HTTP_403_FORBIDDEN)
-        # 判断文件是否存在
-        if os.path.exists(file_path):
-            # 返回file
-            with open(file_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/force-download")
-                response['Content-Disposition'] = "attachment; filename={}".format(escape_uri_path(filename_cn))
-                return response
+        # 调用util中的函数返回文件
+        response = file_response(file_path=file_path, filename=filename_cn)
+        if response:
+            return response
         return Response({'msg': u'文件不存在！'}, status=status.HTTP_400_BAD_REQUEST)
+
 
     def post(self, request, format=None):
         data_params = request.data
@@ -321,3 +317,32 @@ class GetMaterial(APIView):
         file_path = material_obj.file_abs_path
         filename_cn = os.path.basename(file_path)
         return Response({'filename': filename_cn}, status=status.HTTP_200_OK)
+
+class GetMaterials(APIView):
+    '''
+    download all material zip
+    '''
+    def get(self, request, format=None):
+        # 数据初始化
+        data_params = request.GET
+        user = request.user
+        thesis_obj = get_object_or_404(Thesis, id=data_params['thesis_id'])
+        file_path = thesis_obj.file_path
+        zip_name = u'{}.zip'.format(str(file_path).split('/',)[-1])
+        output_filename = os.path.join(file_path, zip_name)
+        # 权限判断
+        if not can_pack(user, thesis_obj):
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        # 删除原有的zip文件
+        if os.path.isfile(output_filename):
+            os.remove(output_filename)
+        # 文件打包
+        try:
+            file_pack(file_path=file_path, output_filename=output_filename)
+        except Exception as e:
+            return Response({'msg': u'文件打包失败！'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # 调用util中的函数返回文件
+        response = file_response(file_path=output_filename, filename=zip_name)
+        if response:
+            return response
+        return Response({'msg': u'文件不存在！'}, status=status.HTTP_400_BAD_REQUEST)
