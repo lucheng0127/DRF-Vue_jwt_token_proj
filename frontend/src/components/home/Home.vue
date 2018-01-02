@@ -5,7 +5,8 @@
         <Col :span="spanLeft" class="layout-menu-left">
         <Menu active-name="1" theme="dark" width="auto">
           <div class="layout-logo-left">
-            <h1>DGS</h1>
+            <!--<h1>DGS</h1>-->
+            <img src="../../assets/img/logo.png">
           </div>
           <MenuItem name="1">
             <Icon type="information-circled" :size="iconSize"></Icon>
@@ -117,5 +118,8 @@
     float: right;
     margin-top: 10px;
     margin-right: 30px;
+  }
+  .layout-logo-left img{
+    width: 80px;
   }
 </style>

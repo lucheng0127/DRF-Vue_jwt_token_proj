@@ -17,4 +17,8 @@ class UserInfo(models.Model):
     nickname = models.CharField(max_length=30, null=False, blank=False) # 老师姓名全拼加数字
     username_cn = models.CharField(max_length=30, null=False, blank=False, unique=True) # 中文名
     job = models.CharField(max_length=100, null=True, blank=True, default='') # 工作职位
-    role = models.CharField(max_length=15, null=False, blank=False, default='teacher') # 权限
+    role = models.CharField(max_length=15, null=False, blank=False, choices=ROLE_TYPE, default='teacher') # 权限
+
+    @property
+    def role_cn(self):
+        return self.get_role_display()

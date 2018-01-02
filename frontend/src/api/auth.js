@@ -6,6 +6,7 @@ export function login (context, creds, redirect) {
   context.$axios.post(LOGIN_URL, creds)
     .then(function (response) {
       sessionStorage.setItem('auth-token', response.data.token)
+      sessionStorage.setItem('user-id', response.data.user.id)
       router.push('/')
     })
     .catch(function (error) {
@@ -16,5 +17,6 @@ export function login (context, creds, redirect) {
 
 export function logout () {
   sessionStorage.removeItem('auth-token')
+  sessionStorage.removeItem('user-id')
   router.push('login')
 }

@@ -4,7 +4,7 @@
       <div class="login-content">
         <div class="login-form">
           <div class="login-title">
-            <h1>DGS</h1>
+            <img src="../../assets/img/logo.png">
           </div>
           <div class="login-item">
             <Icon type="person" size="23" />
@@ -91,7 +91,7 @@
   .login-title{
     font-size: 2.5em;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   .login-item{
     width: 100%;

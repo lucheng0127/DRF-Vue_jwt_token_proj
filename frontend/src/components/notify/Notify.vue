@@ -7,7 +7,7 @@
     </div>
     <div class="layout-content">
       <div class="layout-content-main">
-        Notify Page
+          通知页面
         <router-view/>
       </div>
     </div>
@@ -37,5 +37,9 @@
   .layout-content-main{
     height: 100%;
     padding: 10px;
+    text-align: center;
+  }
+  .logo-bar img{
+    width: 100px;
   }
 </style>

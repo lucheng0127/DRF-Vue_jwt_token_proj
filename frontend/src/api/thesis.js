@@ -6,6 +6,10 @@ export function getAuthHeader () {
   return { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }
 }
 
+export function getUserId () {
+  return {'user-id': sessionStorage.getItem('user-id')}
+}
+
 export function getThesisList (context) {
   context.$axios.get(THESIS_URL, {headers: getAuthHeader()})
     .then(function (response) {
