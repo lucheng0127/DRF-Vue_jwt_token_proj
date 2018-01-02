@@ -19,7 +19,7 @@
               <Button slot="append" icon="ios-refresh" v-on:click="passwdResetCheck">重置</Button>
               </Input>
             </div>
-            <p class="notify-msg" v-show="msg">{{msg}}</p>
+            <p class="setting-notify-msg" v-show="msg">{{msg}}</p>
           </div>
         </div>
         <router-view/>
@@ -85,7 +85,7 @@
     width: 300px;
     float: left;
   }
-  .notify-msg{
+  .setting-notify-msg{
     color: red;
     float: left;
     line-height: 32px;

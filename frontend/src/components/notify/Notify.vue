@@ -37,7 +37,6 @@
   .layout-content-main{
     height: 100%;
     padding: 10px;
-    text-align: center;
   }
   .logo-bar img{
     width: 100px;
