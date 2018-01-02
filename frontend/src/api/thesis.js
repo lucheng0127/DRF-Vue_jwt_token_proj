@@ -7,7 +7,7 @@ export function getAuthHeader () {
 }
 
 export function getUserId () {
-  return {'user-id': sessionStorage.getItem('user-id')}
+  return sessionStorage.getItem('user-id')
 }
 
 export function getThesisList (context) {
