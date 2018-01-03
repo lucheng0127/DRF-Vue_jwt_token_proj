@@ -12,6 +12,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import detail_route
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from apps.thesis.models import Thesis, ThesisLog
 from apps.thesis.serializers import ThesisSerializer, ThesisLogSerializer
 from apps.thesis.permissions import IsOwnerOrReadOnly, can_download, can_pack
@@ -23,6 +25,8 @@ class ThesisViewSet(viewsets.ModelViewSet):
     queryset = Thesis.objects.all()
     serializer_class = ThesisSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('stu_name', 'stu_num', 'stu_subj', 'graduation_year', 'title', 'instructor')
 
     def get_queryset(self):
         if self.request.user.user_info.role == 'admin' or self.request.user.user_info.role == 'college_leader':
