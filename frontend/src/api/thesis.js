@@ -1,4 +1,4 @@
-const THESIS_URL = '/thesis.json'
+let THESIS_URL = '/thesis.json'
 const IMPORT_THESIS_URL = '/thesis/'
 const PACK_URL = '/get_materials/?thesis_id='
 
@@ -10,7 +10,10 @@ export function getUserId () {
   return sessionStorage.getItem('user-id')
 }
 
-export function getThesisList (context) {
+export function getThesisList (context, filterStr = '') {
+  if (filterStr !== '') {
+    THESIS_URL = THESIS_URL + filterStr
+  }
   context.$axios.get(THESIS_URL, {headers: getAuthHeader()})
     .then(function (response) {
       context.thesisData = response.data
