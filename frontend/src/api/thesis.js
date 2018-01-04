@@ -1,6 +1,8 @@
 let THESIS_URL = '/thesis.json'
-const IMPORT_THESIS_URL = '/thesis/'
+export const IMPORT_THESIS_URL = '/thesis/'
 const PACK_URL = '/get_materials/?thesis_id='
+export const MATERIAL_URL = '/materials/'
+export const DOWNLOAD_URL = '/get_material/'
 
 export function getAuthHeader () {
   return { 'Authorization': 'JWT ' + sessionStorage.getItem('auth-token') }

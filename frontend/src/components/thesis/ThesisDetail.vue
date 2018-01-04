@@ -41,10 +41,8 @@
 </template>
 
 <script>
-  import {getThesisDetail, getThesisLog, getTopLogs, getAuthHeader, packMaterials} from '../../api/thesis'
+  import {getThesisDetail, getThesisLog, getTopLogs, getAuthHeader, packMaterials, MATERIAL_URL, DOWNLOAD_URL} from '../../api/thesis'
   import axios from 'axios'
-  const MATERIAL_URL = '/materials/'
-  const DOWNLOAD_URL = '/get_material/'
   export default {
     name: 'thesis-detail',
     created: function () {

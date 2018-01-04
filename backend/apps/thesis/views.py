@@ -60,6 +60,13 @@ class ThesisViewSet(viewsets.ModelViewSet):
             cache_dic['stu_subj'], cache_dic['graduation_year'], \
             cache_dic['title'] = line.split(',',)
             cache_dic['instructor'] = request.user
+            if cache_dic['stu_subj'] == '通信工程':
+                cache_dic['stu_subj'] = 'CE'
+            elif cache_dic['stu_subj'] == '信息与计算科学':
+                cache_dic['stu_subj'] = 'IS'
+            else:
+                bad_data.append(line)
+                continue
             # 判断该学生论文数据是否已经存在
             if Thesis.objects.filter(stu_num=cache_dic['stu_num']):
                 bad_data.append(line)

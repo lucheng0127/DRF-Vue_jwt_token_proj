@@ -24,8 +24,9 @@
 </template>
 
 <script>
-  import {getThesisList} from '../../api/thesis'
+  import {getThesisList, getAuthHeader, IMPORT_THESIS_URL} from '../../api/thesis'
   import router from '../../router/index'
+  import axios from 'axios'
   export default {
     name: 'thesis',
     data () {
@@ -103,7 +104,19 @@
                   },
                   on: {
                     click: () => {
-                      this.remove(params.index)
+                      console.log('删除' + params.row.id)
+                      this.thesisData.splice(params.index, 1)
+                      axios({
+                        method: 'delete',
+                        url: IMPORT_THESIS_URL + params.row.id,
+                        headers: getAuthHeader()
+                      })
+                        .then(function (response) {
+                          console.log(response.data)
+                        })
+                        .catch(function (error) {
+                          console.log(error)
+                        })
                     }
                   }
                 }, '删除')
