@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.authx',
     'apps.user_info',
     'apps.thesis',
+    'apps.notify',
 ]
 
 MIDDLEWARE = [
