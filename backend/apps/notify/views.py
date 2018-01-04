@@ -9,7 +9,7 @@ from apps.notify.permissions import IsDirectorOrReadOnly
 
 class NotifyViewSet(viewsets.ModelViewSet):
     serializer_class = NotifySerializer
-    queryset = Notify.objects.all()
+    queryset = Notify.objects.all().order_by('-id')
     permission_classes = (IsAuthenticated, IsDirectorOrReadOnly)
 
     def perform_create(self, serializer):

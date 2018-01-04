@@ -5,12 +5,14 @@ import re
 from django.conf import settings
 from django.db import models
 
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+
 
 def validator_title(value):
     pattern = r"^[\s\S]*[\"#\$%&\'\(\)\*\+/:;<=>?@\[\\\]\^_`\{\|\}~]"
     if re.match(pattern, value):
-        return False
+        raise ValidationError('含有特殊字符！')
     return True
 
 
